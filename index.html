@@ -18,56 +18,6 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            /* Removed cursor: none to fix the issue */
-        }
-
-        .custom-cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            background: rgba(74, 144, 226, 0.3);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: all 0.15s ease;
-            /* Removed mix-blend-mode to improve visibility */
-            transform: translate(-50%, -50%);
-            opacity: 0;
-        }
-
-        .custom-cursor.visible {
-            opacity: 1;
-        }
-
-        .cursor-trail {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        }
-
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: floatUp linear infinite;
         }
 
         .geometric-bg {
@@ -77,39 +27,39 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.05;
+            opacity: 0.1;
         }
 
         .geometric-shape {
             position: absolute;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 2px solid #ffffff;
         }
 
         .shape-1 {
             top: 10%;
             left: 10%;
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             transform: rotate(45deg);
-            animation: gentleRotate 25s linear infinite;
+            animation: rotateFloat 20s linear infinite;
         }
 
         .shape-2 {
             top: 60%;
             right: 15%;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            animation: gentlePulse 6s ease-in-out infinite;
+            animation: pulse 4s ease-in-out infinite;
         }
 
         .shape-3 {
             bottom: 20%;
             left: 20%;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation: gentleFloat 10s ease-in-out infinite;
+            animation: float 8s ease-in-out infinite;
         }
 
         .container {
@@ -122,73 +72,27 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .company-logo {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 3rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transform: scale(0.8);
-            animation: logoAppear 2s ease-out forwards;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .company-logo::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: logoShimmer 3s ease-in-out infinite;
-        }
-
         .main-title {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 300;
             margin-bottom: 1.5rem;
             opacity: 0;
             transform: translateY(30px);
-            animation: slideUpFade 1.5s ease-out 0.8s forwards;
-            letter-spacing: 4px;
+            animation: slideUpFade 1.2s ease-out 0.5s forwards;
+            letter-spacing: 3px;
             line-height: 1.2;
-            position: relative;
-        }
-
-        .main-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #4a90e2, transparent);
-            transform: translateX(-50%);
-            animation: expandLine 2s ease-out 2s forwards;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 4rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: slideUpFade 1.5s ease-out 1.3s forwards;
+            animation: slideUpFade 1.2s ease-out 1s forwards;
             color: #b3d4fc;
             font-weight: 300;
             line-height: 1.6;
@@ -197,84 +101,27 @@
         .construction-section {
             margin-bottom: 4rem;
             opacity: 0;
-            animation: slideUpFade 1.5s ease-out 1.8s forwards;
+            animation: slideUpFade 1.2s ease-out 1.5s forwards;
         }
 
         .construction-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            opacity: 0.8;
-            animation: gentlePulse 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
-        }
-
-        .elegant-loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-size: 5rem;
             margin-bottom: 3rem;
-            opacity: 0;
-            animation: slideUpFade 1.5s ease-out 2.3s forwards;
+            opacity: 0.8;
+            animation: pulse 3s ease-in-out infinite;
         }
-
-        .loader-dot {
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            margin: 0 6px;
-            animation: elegantPulse 2s ease-in-out infinite;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .loader-dot:nth-child(1) { animation-delay: 0s; }
-        .loader-dot:nth-child(2) { animation-delay: 0.3s; }
-        .loader-dot:nth-child(3) { animation-delay: 0.6s; }
-
-        .loader-dot::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0.4;
-            animation: dotRipple 2s ease-in-out infinite;
-        }
-
-        .loader-dot:nth-child(1)::after { animation-delay: 0s; }
-        .loader-dot:nth-child(2)::after { animation-delay: 0.3s; }
-        .loader-dot:nth-child(3)::after { animation-delay: 0.6s; }
 
         .message-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
             border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 3rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             opacity: 0;
             transform: translateY(40px);
-            animation: slideUpFadeCard 1.5s ease-out 2.8s forwards;
+            animation: slideUpFade 1s ease-out 2s forwards;
             margin-bottom: 4rem;
             max-width: 600px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .message-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: cardShimmer 3s ease-in-out infinite;
         }
 
         .message-text {
@@ -282,14 +129,12 @@
             color: #e8f0fe;
             line-height: 1.7;
             font-weight: 300;
-            position: relative;
-            z-index: 1;
         }
 
         .progress-section {
             margin-bottom: 4rem;
             opacity: 0;
-            animation: slideUpFade 1.5s ease-out 3.3s forwards;
+            animation: slideUpFade 1s ease-out 2.5s forwards;
         }
 
         .progress-title {
@@ -302,22 +147,31 @@
         .progress-bar {
             width: 100%;
             max-width: 400px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 2px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
             overflow: hidden;
             margin: 0 auto;
-            position: relative;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #4a90e2, #357abd, #4a90e2);
-            background-size: 200% 100%;
-            border-radius: 2px;
+            background: linear-gradient(90deg, #4a90e2, #357abd);
+            border-radius: 3px;
             width: 0;
-            animation: fillProgress 2.5s ease-out 3.8s forwards, progressShimmer 2s ease-in-out infinite 6.3s;
+            animation: fillProgress 2s ease-out 3s forwards;
             position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s ease-in-out infinite;
         }
 
         .footer {
@@ -328,57 +182,65 @@
             color: #b3d4fc;
             font-size: 0.9rem;
             opacity: 0;
-            animation: slideUpFade 1.5s ease-out 4.3s forwards;
+            animation: slideUpFade 1s ease-out 3.5s forwards;
             text-align: center;
         }
 
         .year {
             color: #ffffff;
-            font-weight: 400;
         }
 
-        /* Custom cursor visibility toggle */
-        .cursor-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            opacity: 0;
-            animation: slideUpFade 1s ease-out 4s forwards;
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .cursor-mode-toggle:hover {
-            background: rgba(255, 255, 255, 0.15);
+        @keyframes fillProgress {
+            to {
+                width: 70%;
+            }
         }
 
-        /* Hide custom cursor on mobile */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes rotateFloat {
+            0% { transform: rotate(45deg) translateY(0px); }
+            50% { transform: rotate(225deg) translateY(-20px); }
+            100% { transform: rotate(405deg) translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes gentleGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(74, 144, 226, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(74, 144, 226, 0.2);
+            }
+        }
+
+        .message-card {
+            animation: slideUpFade 1s ease-out 2s forwards, gentleGlow 5s ease-in-out infinite 3s;
+        }
+
         @media (max-width: 768px) {
-            .custom-cursor,
-            .cursor-trail {
-                display: none !important;
-            }
-            
-            .cursor-mode-toggle {
-                display: none;
-            }
-            
             .main-title {
                 font-size: 2.5rem;
                 letter-spacing: 2px;
-            }
-            
-            .company-logo {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
             }
             
             .subtitle {
@@ -386,11 +248,15 @@
             }
             
             .construction-icon {
-                font-size: 3rem;
+                font-size: 4rem;
             }
             
             .message-card {
                 padding: 2rem 1.5rem;
+            }
+            
+            .message-text {
+                font-size: 1rem;
             }
         }
 
@@ -404,8 +270,12 @@
                 letter-spacing: 1px;
             }
             
+            .subtitle {
+                font-size: 1rem;
+            }
+            
             .construction-icon {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
             }
             
             .message-card {
@@ -414,155 +284,27 @@
             }
         }
 
-        /* Keyframes - same as original */
-        @keyframes logoAppear {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes logoShimmer {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        @keyframes slideUpFade {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUpFadeCard {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes expandLine {
-            to {
-                width: 100px;
-            }
-        }
-
-        @keyframes elegantPulse {
-            0%, 100% {
-                opacity: 0.6;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-        }
-
-        @keyframes dotRipple {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0.6;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(2.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes cardShimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        @keyframes fillProgress {
-            to {
-                width: 75%;
-            }
-        }
-
-        @keyframes progressShimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        @keyframes gentleRotate {
-            from { transform: rotate(45deg); }
-            to { transform: rotate(405deg); }
-        }
-
-        @keyframes gentlePulse {
-            0%, 100% { opacity: 0.05; transform: scale(1); }
-            50% { opacity: 0.1; transform: scale(1.05); }
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes floatUp {
-            from {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-100px) translateX(50px);
-                opacity: 0;
-            }
-        }
-
-        /* Background breathing effect */
+        /* Subtle background animation */
         .container::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
             transform: translate(-50%, -50%);
-            animation: gentleBreath 8s ease-in-out infinite;
+            animation: breathe 8s ease-in-out infinite;
             pointer-events: none;
         }
 
-        @keyframes gentleBreath {
+        @keyframes breathe {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.05); }
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Performance optimizations */
-        .company-logo,
-        .loader-dot,
-        .progress-fill,
-        .geometric-shape,
-        .particle {
-            will-change: transform;
-            backface-visibility: hidden;
         }
     </style>
 </head>
 <body>
-    <div class="cursor-mode-toggle" onclick="toggleCustomCursor()">Toggle Custom Cursor</div>
-    <div class="custom-cursor"></div>
-    <div class="floating-particles"></div>
-    
     <div class="geometric-bg">
         <div class="geometric-shape shape-1"></div>
         <div class="geometric-shape shape-2"></div>
@@ -570,26 +312,16 @@
     </div>
 
     <div class="container">
-        <div class="company-logo">
-            C
-        </div>
-        
         <h1 class="main-title">Coming Soon</h1>
         <p class="subtitle">Under Construction</p>
         
         <div class="construction-section">
-            <div class="construction-icon">⚙️</div>
-        </div>
-        
-        <div class="elegant-loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
+            <div class="construction-icon">🔧</div>
         </div>
         
         <div class="message-card">
             <div class="message-text">
-                We're carefully crafting something exceptional. Our team is working diligently to deliver a remarkable experience. Thank you for your patience as we put the finishing touches on our project.
+                We're currently working hard to bring you something new. Thank you for your patience as we put the finishing touches on our project.
             </div>
         </div>
         
@@ -601,248 +333,51 @@
         </div>
         
         <div class="footer">
-            <span class="year">2024</span>
+            <span class="year">2025</span>
         </div>
     </div>
 
     <script>
-        // Improved Elegant Corporate Animation Controller
-        class ElegantComingSoon {
-            private particles: HTMLElement[] = [];
-            private mouseX: number = 0;
-            private mouseY: number = 0;
-            private customCursorEnabled: boolean = false;
-
+        // Simple Coming Soon Page
+        class ComingSoonPage {
             constructor() {
                 this.init();
             }
 
             private init(): void {
-                this.createFloatingParticles();
-                this.addInteractiveEffects();
-                this.startParticleSystem();
-                
-                // Only enable custom cursor on desktop
-                if (window.innerWidth > 768) {
-                    this.enableCustomCursor();
-                }
+                this.createParallaxEffect();
             }
 
-            private enableCustomCursor(): void {
-                const cursor = document.querySelector('.custom-cursor') as HTMLElement;
-                if (!cursor) return;
-
-                this.customCursorEnabled = true;
-                
-                // Show custom cursor
-                cursor.classList.add('visible');
-                
-                // Hide default cursor only when custom cursor is active
-                document.body.style.cursor = 'none';
-
-                document.addEventListener('mousemove', (e) => {
-                    this.mouseX = e.clientX;
-                    this.mouseY = e.clientY;
-                    
-                    if (cursor && this.customCursorEnabled) {
-                        cursor.style.left = `${e.clientX}px`;
-                        cursor.style.top = `${e.clientY}px`;
-                    }
-                    
-                    this.createCursorTrail(e.clientX, e.clientY);
-                });
-
-                // Enhanced cursor on hover
-                const interactiveElements = document.querySelectorAll('.company-logo, .message-card, .elegant-loader, .loader-dot');
-                interactiveElements.forEach(element => {
-                    element.addEventListener('mouseenter', () => {
-                        if (cursor && this.customCursorEnabled) {
-                            cursor.style.width = '20px';
-                            cursor.style.height = '20px';
-                            cursor.style.borderColor = '#4a90e2';
-                            cursor.style.background = 'rgba(74, 144, 226, 0.2)';
-                        }
-                    });
-                    
-                    element.addEventListener('mouseleave', () => {
-                        if (cursor && this.customCursorEnabled) {
-                            cursor.style.width = '12px';
-                            cursor.style.height = '12px';
-                            cursor.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-                            cursor.style.background = 'rgba(74, 144, 226, 0.3)';
-                        }
-                    });
-                });
-            }
-
-            public toggleCustomCursor(): void {
-                const cursor = document.querySelector('.custom-cursor') as HTMLElement;
-                if (!cursor) return;
-
-                if (this.customCursorEnabled) {
-                    // Disable custom cursor
-                    this.customCursorEnabled = false;
-                    cursor.classList.remove('visible');
-                    document.body.style.cursor = 'auto';
-                } else {
-                    // Enable custom cursor
-                    this.enableCustomCursor();
-                }
-            }
-
-            private createCursorTrail(x: number, y: number): void {
-                if (!this.customCursorEnabled || Math.random() > 0.7) return;
-
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = `${x}px`;
-                trail.style.top = `${y}px`;
-                
-                document.body.appendChild(trail);
-                
-                trail.animate([
-                    { opacity: 0.8, transform: 'translate(-50%, -50%) scale(1)' },
-                    { opacity: 0, transform: 'translate(-50%, -50%) scale(0)' }
-                ], {
-                    duration: 600,
-                    easing: 'ease-out'
-                }).onfinish = () => {
-                    if (document.body.contains(trail)) {
-                        document.body.removeChild(trail);
-                    }
-                };
-            }
-
-            private createFloatingParticles(): void {
-                const container = document.querySelector('.floating-particles');
-                if (!container) return;
-
-                for (let i = 0; i < 15; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
-                    particle.style.animationDelay = Math.random() * 5 + 's';
-                    particle.style.opacity = (Math.random() * 0.3 + 0.1).toString();
-                    
-                    container.appendChild(particle);
-                    this.particles.push(particle);
-                }
-            }
-
-            private addInteractiveEffects(): void {
-                // Logo interaction
-                const logo = document.querySelector('.company-logo');
-                if (logo) {
-                    logo.addEventListener('mouseenter', () => {
-                        (logo as HTMLElement).style.transform = 'scale(1.05) rotate(5deg)';
-                        (logo as HTMLElement).style.borderColor = 'rgba(74, 144, 226, 0.4)';
-                    });
-                    
-                    logo.addEventListener('mouseleave', () => {
-                        (logo as HTMLElement).style.transform = 'scale(1) rotate(0deg)';
-                        (logo as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                    });
-                }
-
-                // Card hover effect
-                const messageCard = document.querySelector('.message-card');
-                if (messageCard) {
-                    messageCard.addEventListener('mouseenter', () => {
-                        (messageCard as HTMLElement).style.transform = 'translateY(-5px)';
-                        (messageCard as HTMLElement).style.borderColor = 'rgba(74, 144, 226, 0.3)';
-                    });
-                    
-                    messageCard.addEventListener('mouseleave', () => {
-                        (messageCard as HTMLElement).style.transform = 'translateY(0)';
-                        (messageCard as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                    });
-                }
-
-                // Parallax effect on mouse move
+            private createParallaxEffect(): void {
                 document.addEventListener('mousemove', (e) => {
                     const shapes = document.querySelectorAll('.geometric-shape');
-                    const mouseX = (e.clientX / window.innerWidth) - 0.5;
-                    const mouseY = (e.clientY / window.innerHeight) - 0.5;
+                    const mouseX = e.clientX / window.innerWidth;
+                    const mouseY = e.clientY / window.innerHeight;
 
                     shapes.forEach((shape, index) => {
                         const speed = (index + 1) * 0.01;
-                        const x = mouseX * speed * 20;
-                        const y = mouseY * speed * 20;
+                        const x = (mouseX - 0.5) * speed * 50;
+                        const y = (mouseY - 0.5) * speed * 50;
                         
-                        const baseTransform = shape.className.includes('shape-1') ? 'rotate(45deg)' : '';
-                        (shape as HTMLElement).style.transform = `${baseTransform} translate(${x}px, ${y}px)`;
+                        (shape as HTMLElement).style.transform += ` translate(${x}px, ${y}px)`;
                     });
                 });
-            }
 
-            private startParticleSystem(): void {
-                setInterval(() => {
-                    if (Math.random() > 0.8) {
-                        this.addNewParticle();
+                // Gentle scroll effects
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.2;
+                    
+                    const bg = document.querySelector('.geometric-bg') as HTMLElement;
+                    if (bg) {
+                        bg.style.transform = `translateY(${rate}px)`;
                     }
-                }, 3000);
-            }
-
-            private addNewParticle(): void {
-                const container = document.querySelector('.floating-particles');
-                if (!container || this.particles.length > 20) return;
-
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
-                particle.style.opacity = (Math.random() * 0.2 + 0.1).toString();
-                
-                container.appendChild(particle);
-                this.particles.push(particle);
-
-                setTimeout(() => {
-                    if (container.contains(particle)) {
-                        container.removeChild(particle);
-                        this.particles = this.particles.filter(p => p !== particle);
-                    }
-                }, (Math.random() * 8 + 6) * 1000);
+                });
             }
         }
 
-        // Initialize the elegant coming soon page
-        const elegantPage = new ElegantComingSoon();
-
-        // Global function for toggle button
-        function toggleCustomCursor() {
-            elegantPage.toggleCustomCursor();
-        }
-
-        // Add subtle interactive enhancements
-        document.addEventListener('DOMContentLoaded', () => {
-            const loaderDots = document.querySelectorAll('.loader-dot');
-            loaderDots.forEach((dot, index) => {
-                dot.addEventListener('mouseenter', () => {
-                    (dot as HTMLElement).style.background = '#4a90e2';
-                    (dot as HTMLElement).style.transform = 'scale(1.3)';
-                });
-                
-                dot.addEventListener('mouseleave', () => {
-                    (dot as HTMLElement).style.background = 'rgba(255, 255, 255, 0.6)';
-                    (dot as HTMLElement).style.transform = 'scale(1)';
-                });
-            });
-
-            // Add subtle background color shifts
-            let hue = 220;
-            setInterval(() => {
-                hue = (hue + 0.5) % 360;
-                document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 65%, 25%) 0%, hsl(${hue + 20}, 65%, 35%) 100%)`;
-            }, 100);
-        });
-
-        // Error handling for cursor
-        window.addEventListener('error', (e) => {
-            console.error('Script error:', e);
-            // Fallback: show default cursor if there's an error
-            document.body.style.cursor = 'auto';
-        });
+        // Initialize page
+        const comingSoonPage = new ComingSoonPage();
     </script>
 </body>
 </html>
