@@ -18,29 +18,37 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            cursor: none;
+            /* Removed cursor: none to fix the issue */
         }
 
         .custom-cursor {
             position: fixed;
             width: 12px;
             height: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            background: rgba(74, 144, 226, 0.3);
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
+            transition: all 0.15s ease;
+            /* Removed mix-blend-mode to improve visibility */
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .custom-cursor.visible {
+            opacity: 1;
         }
 
         .cursor-trail {
             position: fixed;
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.4);
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
+            transform: translate(-50%, -50%);
         }
 
         .floating-particles {
@@ -136,6 +144,7 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .company-logo::before {
@@ -216,6 +225,7 @@
             margin: 0 6px;
             animation: elegantPulse 2s ease-in-out infinite;
             position: relative;
+            cursor: pointer;
         }
 
         .loader-dot:nth-child(1) { animation-delay: 0s; }
@@ -253,6 +263,7 @@
             max-width: 600px;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .message-card::before {
@@ -326,7 +337,84 @@
             font-weight: 400;
         }
 
-        /* Keyframes */
+        /* Custom cursor visibility toggle */
+        .cursor-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            animation: slideUpFade 1s ease-out 4s forwards;
+        }
+
+        .cursor-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hide custom cursor on mobile */
+        @media (max-width: 768px) {
+            .custom-cursor,
+            .cursor-trail {
+                display: none !important;
+            }
+            
+            .cursor-mode-toggle {
+                display: none;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .company-logo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .construction-icon {
+                font-size: 3rem;
+            }
+            
+            .message-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+            
+            .construction-icon {
+                font-size: 2.5rem;
+            }
+            
+            .message-card {
+                padding: 1.5rem;
+                margin-bottom: 3rem;
+            }
+        }
+
+        /* Keyframes - same as original */
         @keyframes logoAppear {
             to {
                 opacity: 1;
@@ -448,60 +536,6 @@
             50% { transform: translate(-50%, -50%) scale(1.05); }
         }
 
-        @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            
-            .custom-cursor,
-            .cursor-trail {
-                display: none;
-            }
-            
-            .main-title {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-            
-            .company-logo {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .construction-icon {
-                font-size: 3rem;
-            }
-            
-            .message-card {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-            }
-            
-            .main-title {
-                font-size: 2rem;
-                letter-spacing: 1px;
-            }
-            
-            .construction-icon {
-                font-size: 2.5rem;
-            }
-            
-            .message-card {
-                padding: 1.5rem;
-                margin-bottom: 3rem;
-            }
-        }
-
         /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -525,6 +559,7 @@
     </style>
 </head>
 <body>
+    <div class="cursor-mode-toggle" onclick="toggleCustomCursor()">Toggle Custom Cursor</div>
     <div class="custom-cursor"></div>
     <div class="floating-particles"></div>
     
@@ -566,87 +601,116 @@
         </div>
         
         <div class="footer">
-            <span class="year">2025</span>
+            <span class="year">2024</span>
         </div>
     </div>
 
     <script>
-        // Elegant Corporate Animation Controller
+        // Improved Elegant Corporate Animation Controller
         class ElegantComingSoon {
             private particles: HTMLElement[] = [];
             private mouseX: number = 0;
             private mouseY: number = 0;
+            private customCursorEnabled: boolean = false;
 
             constructor() {
                 this.init();
             }
 
             private init(): void {
-                this.setupCustomCursor();
                 this.createFloatingParticles();
                 this.addInteractiveEffects();
                 this.startParticleSystem();
+                
+                // Only enable custom cursor on desktop
+                if (window.innerWidth > 768) {
+                    this.enableCustomCursor();
+                }
             }
 
-            private setupCustomCursor(): void {
+            private enableCustomCursor(): void {
                 const cursor = document.querySelector('.custom-cursor') as HTMLElement;
-                
-                if (window.innerWidth > 768) {
-                    document.addEventListener('mousemove', (e) => {
-                        this.mouseX = e.clientX;
-                        this.mouseY = e.clientY;
-                        
-                        if (cursor) {
-                            cursor.style.left = `${e.clientX - 6}px`;
-                            cursor.style.top = `${e.clientY - 6}px`;
-                        }
-                        
-                        this.createCursorTrail(e.clientX, e.clientY);
-                    });
+                if (!cursor) return;
 
-                    // Enhanced cursor on hover
-                    const interactiveElements = document.querySelectorAll('.company-logo, .message-card, .elegant-loader');
-                    interactiveElements.forEach(element => {
-                        element.addEventListener('mouseenter', () => {
-                            if (cursor) {
-                                cursor.style.width = '20px';
-                                cursor.style.height = '20px';
-                                cursor.style.borderColor = '#4a90e2';
-                                cursor.style.background = 'rgba(74, 144, 226, 0.1)';
-                            }
-                        });
-                        
-                        element.addEventListener('mouseleave', () => {
-                            if (cursor) {
-                                cursor.style.width = '12px';
-                                cursor.style.height = '12px';
-                                cursor.style.borderColor = 'rgba(255, 255, 255, 0.6)';
-                                cursor.style.background = 'transparent';
-                            }
-                        });
+                this.customCursorEnabled = true;
+                
+                // Show custom cursor
+                cursor.classList.add('visible');
+                
+                // Hide default cursor only when custom cursor is active
+                document.body.style.cursor = 'none';
+
+                document.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                    
+                    if (cursor && this.customCursorEnabled) {
+                        cursor.style.left = `${e.clientX}px`;
+                        cursor.style.top = `${e.clientY}px`;
+                    }
+                    
+                    this.createCursorTrail(e.clientX, e.clientY);
+                });
+
+                // Enhanced cursor on hover
+                const interactiveElements = document.querySelectorAll('.company-logo, .message-card, .elegant-loader, .loader-dot');
+                interactiveElements.forEach(element => {
+                    element.addEventListener('mouseenter', () => {
+                        if (cursor && this.customCursorEnabled) {
+                            cursor.style.width = '20px';
+                            cursor.style.height = '20px';
+                            cursor.style.borderColor = '#4a90e2';
+                            cursor.style.background = 'rgba(74, 144, 226, 0.2)';
+                        }
                     });
+                    
+                    element.addEventListener('mouseleave', () => {
+                        if (cursor && this.customCursorEnabled) {
+                            cursor.style.width = '12px';
+                            cursor.style.height = '12px';
+                            cursor.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+                            cursor.style.background = 'rgba(74, 144, 226, 0.3)';
+                        }
+                    });
+                });
+            }
+
+            public toggleCustomCursor(): void {
+                const cursor = document.querySelector('.custom-cursor') as HTMLElement;
+                if (!cursor) return;
+
+                if (this.customCursorEnabled) {
+                    // Disable custom cursor
+                    this.customCursorEnabled = false;
+                    cursor.classList.remove('visible');
+                    document.body.style.cursor = 'auto';
+                } else {
+                    // Enable custom cursor
+                    this.enableCustomCursor();
                 }
             }
 
             private createCursorTrail(x: number, y: number): void {
-                if (Math.random() > 0.7) { // Reduce frequency for elegance
-                    const trail = document.createElement('div');
-                    trail.className = 'cursor-trail';
-                    trail.style.left = `${x - 1.5}px`;
-                    trail.style.top = `${y - 1.5}px`;
-                    
-                    document.body.appendChild(trail);
-                    
-                    trail.animate([
-                        { opacity: 0.6, transform: 'scale(1)' },
-                        { opacity: 0, transform: 'scale(0)' }
-                    ], {
-                        duration: 800,
-                        easing: 'ease-out'
-                    }).onfinish = () => {
+                if (!this.customCursorEnabled || Math.random() > 0.7) return;
+
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = `${x}px`;
+                trail.style.top = `${y}px`;
+                
+                document.body.appendChild(trail);
+                
+                trail.animate([
+                    { opacity: 0.8, transform: 'translate(-50%, -50%) scale(1)' },
+                    { opacity: 0, transform: 'translate(-50%, -50%) scale(0)' }
+                ], {
+                    duration: 600,
+                    easing: 'ease-out'
+                }).onfinish = () => {
+                    if (document.body.contains(trail)) {
                         document.body.removeChild(trail);
-                    };
-                }
+                    }
+                };
             }
 
             private createFloatingParticles(): void {
@@ -706,24 +770,13 @@
                         const x = mouseX * speed * 20;
                         const y = mouseY * speed * 20;
                         
-                        (shape as HTMLElement).style.transform += ` translate(${x}px, ${y}px)`;
+                        const baseTransform = shape.className.includes('shape-1') ? 'rotate(45deg)' : '';
+                        (shape as HTMLElement).style.transform = `${baseTransform} translate(${x}px, ${y}px)`;
                     });
-                });
-
-                // Scroll effects
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * -0.1;
-                    
-                    const shapes = document.querySelector('.geometric-bg') as HTMLElement;
-                    if (shapes) {
-                        shapes.style.transform = `translateY(${rate}px)`;
-                    }
                 });
             }
 
             private startParticleSystem(): void {
-                // Periodic particle refresh
                 setInterval(() => {
                     if (Math.random() > 0.8) {
                         this.addNewParticle();
@@ -744,7 +797,6 @@
                 container.appendChild(particle);
                 this.particles.push(particle);
 
-                // Remove particle after animation
                 setTimeout(() => {
                     if (container.contains(particle)) {
                         container.removeChild(particle);
@@ -757,9 +809,13 @@
         // Initialize the elegant coming soon page
         const elegantPage = new ElegantComingSoon();
 
+        // Global function for toggle button
+        function toggleCustomCursor() {
+            elegantPage.toggleCustomCursor();
+        }
+
         // Add subtle interactive enhancements
         document.addEventListener('DOMContentLoaded', () => {
-            // Progressive enhancement for loader dots
             const loaderDots = document.querySelectorAll('.loader-dot');
             loaderDots.forEach((dot, index) => {
                 dot.addEventListener('mouseenter', () => {
@@ -779,6 +835,13 @@
                 hue = (hue + 0.5) % 360;
                 document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 65%, 25%) 0%, hsl(${hue + 20}, 65%, 35%) 100%)`;
             }, 100);
+        });
+
+        // Error handling for cursor
+        window.addEventListener('error', (e) => {
+            console.error('Script error:', e);
+            // Fallback: show default cursor if there's an error
+            document.body.style.cursor = 'auto';
         });
     </script>
 </body>
