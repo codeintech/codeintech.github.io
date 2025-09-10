@@ -1,383 +1,693 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon - Under Construction</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codeintech - Coming Soon</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        position: relative;
+      }
+
+      /* Animated Background */
+      .bg-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .bg-animation::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.03) 2px,
+          rgba(255, 255, 255, 0.03) 4px
+        );
+        animation: moveBackground 20s linear infinite;
+      }
+
+      @keyframes moveBackground {
+        0% {
+          transform: translate(-50%, -50%);
+        }
+        100% {
+          transform: translate(-48%, -48%);
+        }
+      }
+
+      /* Floating particles */
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .particle:nth-child(1) {
+        width: 20px;
+        height: 20px;
+        top: 20%;
+        left: 10%;
+        animation-delay: -2s;
+      }
+      .particle:nth-child(2) {
+        width: 15px;
+        height: 15px;
+        top: 60%;
+        left: 80%;
+        animation-delay: -1s;
+      }
+      .particle:nth-child(3) {
+        width: 10px;
+        height: 10px;
+        top: 40%;
+        left: 70%;
+        animation-delay: -3s;
+      }
+      .particle:nth-child(4) {
+        width: 25px;
+        height: 25px;
+        top: 80%;
+        left: 20%;
+        animation-delay: -4s;
+      }
+      .particle:nth-child(5) {
+        width: 12px;
+        height: 12px;
+        top: 30%;
+        left: 90%;
+        animation-delay: -0.5s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+          opacity: 1;
+        }
+      }
+
+      /* Main container */
+      .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Logo/Brand */
+      .logo {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        animation: glow 3s ease-in-out infinite alternate;
+      }
+
+      .logo i {
+        font-size: 3.5rem;
+        color: white;
+      }
+
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        100% {
+          box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      /* Typography */
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 300;
+        color: white;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        letter-spacing: -1px;
+        animation: slideInUp 1s ease-out;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 15px;
+        font-weight: 400;
+        animation: slideInUp 1s ease-out 0.2s both;
+      }
+
+      .description {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 50px;
+        animation: slideInUp 1s ease-out 0.4s both;
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Countdown Timer */
+      .countdown {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 50px;
+        animation: slideInUp 1s ease-out 0.6s both;
+      }
+
+      .countdown-item {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        min-width: 100px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .countdown-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .countdown-number {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: white;
+        display: block;
+      }
+
+      .countdown-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 10px;
+      }
+
+      /* Email subscription */
+      .email-form {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        padding: 30px;
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 40px;
+        animation: slideInUp 1s ease-out 0.8s both;
+      }
+
+      .email-form h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-weight: 400;
+        font-size: 1.4rem;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .email-input {
+        padding: 15px 20px;
+        border: none;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-size: 1rem;
+        min-width: 300px;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .email-input::placeholder {
+        color: #999;
+      }
+
+      .email-input:focus {
+        background: white;
+        transform: scale(1.02);
+      }
+
+      .notify-btn {
+        padding: 15px 30px;
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .notify-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(238, 90, 36, 0.4);
+      }
+
+      .notify-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Social links */
+      .social-links {
+        display: flex;
+        gap: 20px;
+        animation: slideInUp 1s ease-out 1s both;
+      }
+
+      .social-link {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px) scale(1.1);
+        color: white;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+        .countdown {
+          gap: 15px;
+          flex-wrap: wrap;
+          justify-content: center;
         }
 
-        .geometric-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.1;
+        .countdown-item {
+          min-width: 80px;
+          padding: 20px 15px;
         }
 
-        .geometric-shape {
-            position: absolute;
-            border: 2px solid #ffffff;
+        .countdown-number {
+          font-size: 2rem;
         }
 
-        .shape-1 {
-            top: 10%;
-            left: 10%;
-            width: 150px;
-            height: 150px;
-            transform: rotate(45deg);
-            animation: rotateFloat 20s linear infinite;
+        .input-group {
+          flex-direction: column;
         }
 
-        .shape-2 {
-            top: 60%;
-            right: 15%;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
+        .email-input {
+          min-width: 280px;
+          width: 100%;
         }
+      }
 
-        .shape-3 {
-            bottom: 20%;
-            left: 20%;
-            width: 80px;
-            height: 80px;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation: float 8s ease-in-out infinite;
-        }
-
+      @media (max-width: 480px) {
         .container {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            max-width: 700px;
-            margin: 0 auto;
+          padding: 15px;
         }
 
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUpFade 1.2s ease-out 0.5s forwards;
-            letter-spacing: 3px;
-            line-height: 1.2;
+        h1 {
+          font-size: 2rem;
         }
 
         .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUpFade 1.2s ease-out 1s forwards;
-            color: #b3d4fc;
-            font-weight: 300;
-            line-height: 1.6;
+          font-size: 1.1rem;
         }
 
-        .construction-section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: slideUpFade 1.2s ease-out 1.5s forwards;
+        .description {
+          font-size: 1rem;
         }
 
-        .construction-icon {
-            font-size: 5rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            animation: pulse 3s ease-in-out infinite;
+        .email-form {
+          padding: 20px;
         }
-
-        .message-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transform: translateY(40px);
-            animation: slideUpFade 1s ease-out 2s forwards;
-            margin-bottom: 4rem;
-            max-width: 600px;
-        }
-
-        .message-text {
-            font-size: 1.1rem;
-            color: #e8f0fe;
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        .progress-section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: slideUpFade 1s ease-out 2.5s forwards;
-        }
-
-        .progress-title {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: #b3d4fc;
-            font-weight: 400;
-        }
-
-        .progress-bar {
-            width: 100%;
-            max-width: 400px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            overflow: hidden;
-            margin: 0 auto;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4a90e2, #357abd);
-            border-radius: 3px;
-            width: 0;
-            animation: fillProgress 2s ease-out 3s forwards;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #b3d4fc;
-            font-size: 0.9rem;
-            opacity: 0;
-            animation: slideUpFade 1s ease-out 3.5s forwards;
-            text-align: center;
-        }
-
-        .year {
-            color: #ffffff;
-        }
-
-        @keyframes slideUpFade {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fillProgress {
-            to {
-                width: 70%;
-            }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        @keyframes rotateFloat {
-            0% { transform: rotate(45deg) translateY(0px); }
-            50% { transform: rotate(225deg) translateY(-20px); }
-            100% { transform: rotate(405deg) translateY(0px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes gentleGlow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(74, 144, 226, 0.1);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(74, 144, 226, 0.2);
-            }
-        }
-
-        .message-card {
-            animation: slideUpFade 1s ease-out 2s forwards, gentleGlow 5s ease-in-out infinite 3s;
-        }
-
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .construction-icon {
-                font-size: 4rem;
-            }
-            
-            .message-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .message-text {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-            }
-            
-            .main-title {
-                font-size: 2rem;
-                letter-spacing: 1px;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .construction-icon {
-                font-size: 3.5rem;
-            }
-            
-            .message-card {
-                padding: 1.5rem;
-                margin-bottom: 3rem;
-            }
-        }
-
-        /* Subtle background animation */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            animation: breathe 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
-        }
+      }
     </style>
-</head>
-<body>
-    <div class="geometric-bg">
-        <div class="geometric-shape shape-1"></div>
-        <div class="geometric-shape shape-2"></div>
-        <div class="geometric-shape shape-3"></div>
+  </head>
+  <body>
+    <div class="bg-animation">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
     </div>
 
     <div class="container">
-        <h1 class="main-title">Coming Soon</h1>
-        <p class="subtitle">Under Construction</p>
-        
-        <div class="construction-section">
-            <div class="construction-icon">🔧</div>
+      <div class="logo">
+        <i class="fas fa-code"></i>
+      </div>
+
+      <h1>Codeintech</h1>
+      <div class="subtitle">Pelatihan & Consultancy Teknologi</div>
+      <p class="description">
+        Kami sedang mempersiapkan platform terbaik untuk pelatihan teknologi dan
+        layanan consultancy. Website kami akan segera hadir dengan program
+        pelatihan berkualitas tinggi dan konsultasi teknologi yang komprehensif.
+        Daftarkan email Anda untuk mendapatkan notifikasi terbaru!
+      </p>
+
+      <!-- <div class="countdown">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">30</span>
+          <div class="countdown-label">Hari</div>
         </div>
-        
-        <div class="message-card">
-            <div class="message-text">
-                We're currently working hard to bring you something new. Thank you for your patience as we put the finishing touches on our project.
-            </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">12</span>
+          <div class="countdown-label">Jam</div>
         </div>
-        
-        <div class="progress-section">
-            <div class="progress-title">Progress</div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">45</span>
+          <div class="countdown-label">Menit</div>
         </div>
-        
-        <div class="footer">
-            <span class="year">2025</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">30</span>
+          <div class="countdown-label">Detik</div>
         </div>
+      </div> -->
+
+      <div class="email-form">
+        <h3>Dapatkan Notifikasi Peluncuran</h3>
+        <div class="input-group">
+          <input
+            type="email"
+            class="email-input"
+            placeholder="Masukkan email Anda"
+            required
+          />
+          <button class="notify-btn" onclick="subscribeEmail()">
+            <i class="fas fa-bell"></i> Notify Me
+          </button>
+        </div>
+      </div>
+
+      <!-- <div class="social-links">
+        <a href="#" class="social-link" title="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-link" title="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-link" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div> -->
     </div>
 
     <script>
-        // Simple Coming Soon Page
-        class ComingSoonPage {
-            constructor() {
-                this.init();
-            }
+      // Newsletter configuration & helpers
+      const NEWSLETTER_ENDPOINT =
+        "https://script.google.com/macros/s/AKfycbxyCRPERlXzlbnlTm6Tc9I4KmSi7Gc_MainxrZpVk-jp4R_dMTxxf5xFe7YMy2cV_Z_vQ/exec"; // Set to your API URL when available
 
-            private init(): void {
-                this.createParallaxEffect();
-            }
+      function getStoredEmails() {
+        try {
+          const raw = localStorage.getItem("newsletter_emails");
+          return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+          console.error("Failed to parse stored emails", e);
+          return [];
+        }
+      }
 
-            private createParallaxEffect(): void {
-                document.addEventListener('mousemove', (e) => {
-                    const shapes = document.querySelectorAll('.geometric-shape');
-                    const mouseX = e.clientX / window.innerWidth;
-                    const mouseY = e.clientY / window.innerHeight;
+      function saveEmailLocal(email) {
+        const emails = getStoredEmails();
+        const exists = emails.some(
+          (e) => e.email.toLowerCase() === email.toLowerCase()
+        );
+        if (!exists) {
+          emails.push({ email, subscribedAt: new Date().toISOString() });
+          localStorage.setItem("newsletter_emails", JSON.stringify(emails));
+        }
+      }
 
-                    shapes.forEach((shape, index) => {
-                        const speed = (index + 1) * 0.01;
-                        const x = (mouseX - 0.5) * speed * 50;
-                        const y = (mouseY - 0.5) * speed * 50;
-                        
-                        (shape as HTMLElement).style.transform += ` translate(${x}px, ${y}px)`;
-                    });
-                });
+      async function sendEmailToEndpoint(email) {
+        if (!NEWSLETTER_ENDPOINT) return { ok: false, skipped: true };
+        try {
+          // Use form-encoded + no-cors to avoid preflight
+          const params = new URLSearchParams();
+          params.append("email", email);
+          params.append("ua", navigator.userAgent || "");
 
-                // Gentle scroll effects
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * -0.2;
-                    
-                    const bg = document.querySelector('.geometric-bg') as HTMLElement;
-                    if (bg) {
-                        bg.style.transform = `translateY(${rate}px)`;
-                    }
-                });
-            }
+          await fetch(NEWSLETTER_ENDPOINT, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            },
+            body: params.toString(),
+          });
+          // In no-cors mode we cannot read the response; assume success if no exception
+          return { ok: true, nocors: true };
+        } catch (err) {
+          return { ok: false, error: err?.message || "Network error" };
+        }
+      }
+      // Countdown Timer
+      function updateCountdown() {
+        // Guard when countdown elements are hidden
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+          return;
+        }
+        // Set target date (30 days from now)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 30);
+
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = days.toString().padStart(2, "0");
+        hoursEl.textContent = hours.toString().padStart(2, "0");
+        minutesEl.textContent = minutes.toString().padStart(2, "0");
+        secondsEl.textContent = seconds.toString().padStart(2, "0");
+
+        if (distance < 0) {
+          document.querySelector(".countdown").innerHTML =
+            "<h2 style='color: white;'>🎉 Codeintech Sudah Live!</h2>";
+        }
+      }
+
+      // Update countdown every second
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // Email subscription
+      async function subscribeEmail() {
+        const emailInput = document.querySelector(".email-input");
+        const btn = document.querySelector(".notify-btn");
+
+        if (!emailInput || !btn) {
+          console.error("Email input or button not found");
+          return;
         }
 
-        // Initialize page
-        const comingSoonPage = new ComingSoonPage();
+        const email = emailInput.value.trim();
+
+        if (!email) {
+          showNotification("Mohon masukkan alamat email Anda.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        if (!isValidEmail(email)) {
+          showNotification("Mohon masukkan alamat email yang valid.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        // Disable button during processing
+        btn.disabled = true;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        // Try send to endpoint first; fallback to localStorage
+        const result = await sendEmailToEndpoint(email);
+        if (!result.ok && !result.skipped) {
+          // Endpoint failed, fallback to local save
+          saveEmailLocal(email);
+        }
+        if (result.skipped) {
+          saveEmailLocal(email);
+        }
+
+        // Success state
+        btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+        btn.style.background = "linear-gradient(45deg, #2ed573, #1e90ff)";
+        showNotification(
+          "Terima kasih! Email Anda telah berhasil didaftarkan.",
+          "success"
+        );
+        emailInput.value = "";
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = "linear-gradient(45deg, #ff6b6b, #ee5a24)";
+          btn.disabled = false;
+        }, 3000);
+      }
+
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      function showNotification(message, type = "success") {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll(
+          ".notification-toast"
+        );
+        existingNotifications.forEach((notif) => notif.remove());
+
+        const notification = document.createElement("div");
+        notification.className = "notification-toast";
+        notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${
+                  type === "success"
+                    ? "rgba(46, 213, 115, 0.95)"
+                    : "rgba(255, 107, 107, 0.95)"
+                };
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                font-weight: 500;
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            `;
+
+        // Add icon based on type
+        const icon =
+          type === "success"
+            ? "fas fa-check-circle"
+            : "fas fa-exclamation-circle";
+        notification.innerHTML = `<i class="${icon}" style="margin-right: 8px;"></i>${message}`;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+          notification.style.transform = "translateX(0)";
+        }, 100);
+
+        // Auto remove after 4 seconds
+        setTimeout(() => {
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }, 4000);
+      }
+
+      // Handle Enter key for email input
+      document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.querySelector(".email-input");
+        if (emailInput) {
+          emailInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              subscribeEmail();
+            }
+          });
+        }
+      });
+
+      // Add ripple animation CSS
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+      document.head.appendChild(style);
     </script>
-</body>
+  </body>
 </html>
